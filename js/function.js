@@ -16,7 +16,7 @@ var Load_messages = function () {
           <tr>
             <td><b>${N}</b></td>
             <td><b>${value.title}</b></td>
-            <td><b>${value.author}</b></td>
+            <td><b>${value.brief}</b></td>
             <td>
               <b>
                <a href="/page/index/${value.id}">      
