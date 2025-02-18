@@ -54,12 +54,8 @@ class DB {
     // получение всех записей таблицы messages
     public static function get_message_table($page)	{
 
-//        $query = "SELECT * FROM messeges";
-//        self::$sth = self::getDbh()->prepare($query);
-//        self::$sth->execute();
-//        return self::$sth->fetchAll(PDO::FETCH_ASSOC);
-        $perpage = 3;                       // количество сообщений на страницу
-        $offset = ($page - 1) * $perpage;   // вычисляем смещение для запроса к БД
+        $perpage = 3;                           // количество сообщений на страницу
+        $offset = ($page - 1) * $perpage;       // вычисляем смещение для запроса к БД
 
         // Запрос к БД для получения сообщений с учетом пагинации
         $query = "SELECT * FROM messeges LIMIT :perpage OFFSET :offset";
@@ -69,11 +65,7 @@ class DB {
         self::$sth->execute();
         $messages = self::$sth->fetchAll(PDO::FETCH_ASSOC);
 
-
         // Запрос к БД для получения общего количества сообщений
-//        $stmt = $pdo->query("SELECT COUNT(*) FROM messages");
-//        $totalMessages = $stmt->fetchColumn();
-
         $query = "SELECT COUNT(*) FROM messeges";
         self::$sth = self::getDbh()->prepare($query);
         self::$sth->execute();

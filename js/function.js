@@ -30,7 +30,6 @@ var Load_messages = function (page) {
             });
 
             // Генерация пагинации
-            //console.log ('page '+ page);
             generatePagination(data.total, page)
         },
         // complete: function () { setTimeout(Load, 5000);  }
@@ -43,9 +42,8 @@ function generatePagination(totalMessages, currentPage) {
     var totalPages = Math.ceil(totalMessages / perPage);   // 10 /3 = 4
     var pagination = $('<div class="pagination"></div>');
 
-    // Удаляем старую пагинацию
+    // удаляем старую пагинацию
     $('.pagination').remove();
-
 
     // кнопка "предыдущая"
     if (currentPage > 1) {
@@ -63,27 +61,9 @@ function generatePagination(totalMessages, currentPage) {
         pagination.append(`<button class="page-link" onclick="Load_messages(${currentPage + 1})">Следующая</button>`);
     }
 
-    // добавляем пагинацию после контейнера сообщений
+    // добавляем пагинацию после конопки отправить сообщение
     $('#last').after(pagination);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // функция выводит все комментарии к сообщению
