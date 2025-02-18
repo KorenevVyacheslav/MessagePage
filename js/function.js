@@ -92,7 +92,7 @@ var addComment = function (commentText) {
     //document.getElementById('comment-input').value = '';
 }
 
-// функция получения всех комментариев
+// функция получения всех комментариев по id сообщения
 var Load_comments = function (id) {
     var result;
     $.ajax({
