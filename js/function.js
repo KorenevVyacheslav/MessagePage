@@ -1,38 +1,90 @@
 
 /* функция вывода через ajax таблицы сообщений на главной странице*/
-var Load_messages = function () {
-    $("#table tbody").children().remove();
+var Load_messages = function (page) {
+    //$("#table tbody").children().remove();
+    $("#messages-container").empty();
     $.ajax({
         type: "POST",
         dataType: 'json',
         url: '/app/ajax.php',
         data: {
-            act: "getAllmes"             // метод загрузит всю таблицу сообщений
+            act: "getAllmes",             // метод загрузит всю таблицу сообщений
+            page: page
         },
         success: function (data) {
-            var N = 1;                      // номер в таблице при выводе
-            $.each(data, function (key, value) {
-                $("#table tbody").append(`
-          <tr>
-            <td><b>${N}</b></td>
-            <td><b>${value.title}</b></td>
-            <td><b>${value.brief}</b></td>
-            <td>
-              <b>
-               <a href="/page/index/${value.id}">      
-                <i>...</i>  
-               </a>
-              </b>
-<!--               <i class="material-icons">&#xE163;</i> не отражается стрелочка, (разобраться!) --> 
-            </td>
-          </tr>
-        `);
-                N++;
+            $.each(data.messages, function (key, value) {
+                // Создаем карточку для каждого сообщения
+                var card = `
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">${value.title}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">${value.author}</h6>
+                                    <p class="card-text">${value.brief}</p>
+                                    <a href="/page/index/${value.id}" class="card-link">Читать полностью</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                $("#messages-container").append(card);
             });
+
+            // Генерация пагинации
+            //console.log ('page '+ page);
+            generatePagination(data.total, page)
         },
         // complete: function () { setTimeout(Load, 5000);  }
-    });
+    });     // $.ajax
 };
+
+// функция для пагинации
+function generatePagination(totalMessages, currentPage) {
+    var perPage = 3;                                          // число сообщений на одну страницу
+    var totalPages = Math.ceil(totalMessages / perPage);   // 10 /3 = 4
+    var pagination = $('<div class="pagination"></div>');
+
+    // Удаляем старую пагинацию
+    $('.pagination').remove();
+
+
+    // кнопка "предыдущая"
+    if (currentPage > 1) {
+        pagination.append(`<button class="page-link" onclick="Load_messages(${currentPage - 1})">Предыдущая</button>`);
+    }
+
+    // номера страниц
+    for (var i = 1; i <= totalPages; i++) {
+        var pageLink = $(`<button class="page-link ${i === currentPage ? 'active' : ''}" onclick="Load_messages(${i})">${i}</button>`);
+        pagination.append(pageLink);
+    }
+
+    // кнопка "следующая"
+    if (currentPage < totalPages) {
+        pagination.append(`<button class="page-link" onclick="Load_messages(${currentPage + 1})">Следующая</button>`);
+    }
+
+    // добавляем пагинацию после контейнера сообщений
+    $('#last').after(pagination);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // функция выводит все комментарии к сообщению
 var addComment = function (commentText) {

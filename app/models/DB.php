@@ -52,11 +52,35 @@ class DB {
 	}
 
     // получение всех записей таблицы messages
-    public static function get_message_table()	{
-        $query = "SELECT * FROM messeges";
+    public static function get_message_table($page)	{
+
+//        $query = "SELECT * FROM messeges";
+//        self::$sth = self::getDbh()->prepare($query);
+//        self::$sth->execute();
+//        return self::$sth->fetchAll(PDO::FETCH_ASSOC);
+        $perpage = 3;                       // количество сообщений на страницу
+        $offset = ($page - 1) * $perpage;   // вычисляем смещение для запроса к БД
+
+        // Запрос к БД для получения сообщений с учетом пагинации
+        $query = "SELECT * FROM messeges LIMIT :perpage OFFSET :offset";
+        self::$sth = self::getDbh()->prepare($query);
+        self::$sth->bindValue('perpage', $perpage, PDO::PARAM_INT);
+        self::$sth->bindValue('offset', $offset, PDO::PARAM_INT);
+        self::$sth->execute();
+        $messages = self::$sth->fetchAll(PDO::FETCH_ASSOC);
+
+
+        // Запрос к БД для получения общего количества сообщений
+//        $stmt = $pdo->query("SELECT COUNT(*) FROM messages");
+//        $totalMessages = $stmt->fetchColumn();
+
+        $query = "SELECT COUNT(*) FROM messeges";
         self::$sth = self::getDbh()->prepare($query);
         self::$sth->execute();
-        return self::$sth->fetchAll(PDO::FETCH_ASSOC);
+        $totalMessages = (self::$sth->fetch(PDO::FETCH_ASSOC)) ['COUNT(*)'];
+
+        return (['messages' => $messages, 'total' => $totalMessages]);
+
     }
 
     // получение сообщения по id
@@ -71,7 +95,6 @@ class DB {
     // получение всех комментариев сообщения по его id
     public static function get_comments_by_Id_mes($id)
     {
-       // $query = "SELECT messege_id FROM pivot WHERE comment_id = :id";
         $query = "SELECT * FROM comments WHERE id IN (SELECT comment_id FROM pivot WHERE messege_id = :id)";
         self::$sth = self::getDbh()->prepare($query);
         self::$sth->execute(array('id' => $id));

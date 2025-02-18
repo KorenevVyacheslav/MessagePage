@@ -22,6 +22,11 @@ class ControllerInput extends Controller	{
         'reg' => false,							// флаг успешной записи сообщения
 	];
 
+//        $rt = DB::get_message_table();
+//echo '<pre>';
+//print_r($rt); die();
+
+
         // обработка кнопки добавления сообщения
         if (isset($_POST['action']) && isset ($_POST['title']) && isset ($_POST['author']) && isset ($_POST['brief']) && isset ($_POST['message']))	{
 

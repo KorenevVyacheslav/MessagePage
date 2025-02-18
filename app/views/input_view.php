@@ -6,8 +6,8 @@
 
 
 <div class="container text-center">
-    <div class="align-items-center text-warning" style="margin-top: 50px">
-        <h3> Страница работы с сообщениями</h3>
+    <div class="align-items-center text-warning mb-4" style="margin-top: 50px">
+        <h4> Страница работы с сообщениями</h4>
     </div>
 </div>
 
@@ -24,25 +24,15 @@
     endif; ?>
 </div>
 
-<div class="container text-center">
-    <div class="container text-center">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div style="margin-top: 10px"><h4 class="text-warning"> Ваши сообщения:</h4></div>
-                    <table id="table" class="table table-bordered  border-warning text-dark data-table bg-secondary"
-                       style="margin-top: 20px">
-                        <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Заголовок</th>
-                            <th>Краткое содержание</th>
-                            <th>Читать/редактировать</th>
-                        </tr>
-                        </thead>
-                    <tbody></tbody>
-                    </table>
-                </div>  <!-- <div class="col-md-8">  -->
-            </div>      <!-- <div class="row justify-content-center">   -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div id="messages-container" class="row row-cols-1 row-cols-md-2 g-4">
+                <!-- поле для сообщений -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
         <!-- форма для добавления сообщения-->
@@ -70,7 +60,7 @@
                     <textarea name="message" id="message" rows="3" placeholder="Введите сообщение" class="form-control"
                               minlength="5" required></textarea>
                 </div>
-                <div class="container mt-5 col-3">
+                <div class="container mt-5 col-3" id="last">
                     <div class="row">
                         <button class="btn btn-primary text-dark" type="submit" name="action">
                             <b>Отправить сообщение</b>
@@ -95,7 +85,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        Load_messages();
+        Load_messages(1);
     });
 
 </script>

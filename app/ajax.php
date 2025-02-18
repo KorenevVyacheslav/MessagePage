@@ -14,7 +14,7 @@
         switch ($_POST['act']) {
             case "getAllmes" :
                 // загрузка всей таблицы соообщений
-                $arr =DB::get_message_table();
+                $arr =DB::get_message_table($_POST['page']);
                 echo json_encode($arr);
                 break;
             case "getMesById" :
