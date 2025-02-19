@@ -4,6 +4,7 @@
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="container text-center">
     <div class="align-items-center text-warning mb-4" style="margin-top: 50px">
@@ -62,7 +63,7 @@
                 </div>
                 <div class="container mt-5 col-3" id="last">
                     <div class="row">
-                        <button class="btn btn-primary text-dark" type="submit" name="action">
+                        <button class="btn btn-primary text-dark" type="submit" name="action" style="width: 270px; font-size: 18px;">
                             <b>Отправить сообщение</b>
                             <i class="material-icons right">&#xE163;</i>
                         </button>
