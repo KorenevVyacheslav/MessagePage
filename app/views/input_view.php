@@ -8,7 +8,7 @@
 
 <div class="container text-center">
     <div class="align-items-center text-warning mb-4" style="margin-top: 50px">
-        <h4> Страница работы с сообщениями</h4>
+        <h4> Страница для работы с сообщениями</h4>
     </div>
 </div>
 

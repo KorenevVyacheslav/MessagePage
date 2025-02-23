@@ -1,31 +1,42 @@
 <?php
+
 namespace App\controllers;
+
 use App\core\Controller;
 use App\core\View;
 use App\models\DB;
 
 
-//контроллер входной страницы
-class ControllerInput extends Controller	{
+/**
+ * контроллер для обработки главной страницы
+ * ControllerPage class
+ */
+class ControllerInput extends Controller
+{
 
-	public function __construct()	{				
-	 	$this->view = new View();					// инициализация объекта представления
-	}
+    /** конструктор класса
+     */
+    public function __construct()
+    {
+        $this->view = new View();                    // инициализация объекта представления
+    }
 
-	function action_index()	{
-
-        /** @var array $data */
-
+    /**
+     * метод для обработки страницы
+     * @return void
+     */
+    function action_index(): void
+    {
         $data = [
-		'errors' => [],							// массив ошибок
-		'messages'=>[],							// массив сообщений
-        'reg' => false,							// флаг успешной записи сообщения
-	];
+            'errors' => [],                            // массив ошибок
+            'messages' => [],                            // массив сообщений
+            'reg' => false,                            // флаг успешной записи сообщения
+        ];
 
         // обработка кнопки добавления сообщения
-        if (isset($_POST['action']) && isset ($_POST['title']) && isset ($_POST['author']) && isset ($_POST['brief']) && isset ($_POST['message']))	{
+        if (isset($_POST['action']) && isset ($_POST['title']) && isset ($_POST['author']) && isset ($_POST['brief']) && isset ($_POST['message'])) {
 
-            $reg=true; 															// флаг разрешения записи
+            $reg = true;                                                            // флаг разрешения записи
 
             // проверка длины вводимых данных дублирует ограничение на уровне html
             // поэтому заккоментировано
@@ -60,18 +71,18 @@ class ControllerInput extends Controller	{
             // так как все данные текстовые, то проверять больше нечего. По ТЗ проверки не оговариваются
 
             // запись сообщения в БД
-            if ($reg==true) {
+            if ($reg == true) {
 
-                $id =false; // если произойдёт ошибка при записи и id не будет возвращен
-                $id = DB::save_message ($title, $author, $brief, $message);
+                $id = false; // если произойдёт ошибка при записи и id не будет возвращен
+                $id = DB::saveMessage($title, $author, $brief, $message);
 
                 if ($id) {
-                    $data['reg']=true;  //  для вывода надписи об успешной записи
-                }	else $data['errors'] [] = "Во время записи сообщения в БД произошла ошибка";
+                    $data['reg'] = true;  //  для вывода надписи об успешной записи
+                } else $data['errors'] [] = "Во время записи сообщения в БД произошла ошибка";
             }
-        } 	//	if (isset($_POST['action'])...
+        }
 
-		$this->view->generate('input_view.php', 'template_view.php', $data);		// генерация view
-	}
+        $this->view->generate('input_view.php', 'template_view.php', $data);        // генерация view
+    }
 }
 

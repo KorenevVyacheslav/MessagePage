@@ -1,13 +1,23 @@
 <?php
+
 namespace App\controllers;
+
 use App\core\Controller;
 
-class Controller404 extends Controller {
-
-	function action_index()
-	{
-		$this->view->generate('404_view.php', 'template_view.php');
-	}
+/**
+ * контроллер для обработки несуществующего адреса
+ * ControllerPage class
+ */
+class Controller404 extends Controller
+{
+    /**
+     * метод для обработки несуществующего адреса страницы
+     * @return void
+     */
+    function action_index(): void
+    {
+        $this->view->generate('404_view.php', 'template_view.php');
+    }
 
 }
 

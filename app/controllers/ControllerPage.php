@@ -1,47 +1,66 @@
 <?php
+
 namespace App\controllers;
+
 use App\core\Controller;
 use App\core\View;
 use App\models\DB;
 
-// контроллер страницы сообщения
-class ControllerPage extends Controller {
+/**
+ * контроллер для обработки страницы сообщения
+ * ControllerPage class
+ */
+class ControllerPage extends Controller
+{
 
-    public $id;                                     // id сообщения
-	public function __construct( $id )	{
-        $this->view = new View();					// инициализация  View страницы
+    /**
+     * @var int id
+     * id сообщения
+     */
+    public $id;
+
+    /** конструктор класса
+     * @param $id
+     */
+    public function __construct($id)
+    {
         $this->id = $id;
-   }
+        $this->view = new View();
+    }
 
-   function action_index()	{
+    /**
+     * метод для обработки страницы сообщения
+     * @return void
+     */
+    function action_index(): void
+    {
+        $data = [
+            'errors' => [],                            // массив ошибок
+            'id' => $this->id,                       // сохраняем id текущего сообщения
+        ];
 
-      $data = [
-       'errors' => [],							// массив ошибок
-       'id' => $this->id,                       // сохраняем id текущего сообщения
-   ];
+        // обработка кнопки добавления сообщения
+        if (isset($_POST['action']) && isset ($_POST['commentText'])) {
 
-       // обработка кнопки добавления сообщения
-       if (isset($_POST['action']) && isset ($_POST['commentText']) )	{
+            $reg = true;                                                            // флаг разрешения записи
 
-           $reg=true; 															// флаг разрешения записи
+            // защита от xss атак
+            $commentText = htmlspecialchars($_POST['commentText']);
 
-           // безопасность вводимых данных
-           $commentText = htmlspecialchars($_POST['commentText']);
-           // так как все данные текстовые, то кроме длины комментария проверять нечего. По ТЗ проверки не оговариваются
+            // так как все данные текстовые, то кроме длины комментария проверять нечего. По ТЗ проверки не оговариваются
+            // запись комментария в БД
+            if ($reg == true) {
+                $id = false; // если произойдёт ошибка при записи и id не будет возвращен
+                // запись комментария в БД
+                $id = DB::saveComment($data['id'], $commentText);
+                if (!$id) {
+                    $data['errors'] [] = "Во время записи комметария в БД произошла ошибка";
+                }
+            }
+        }
 
-           // запись комментария в БД
-           if ($reg==true) {
-               $id =false; // если произойдёт ошибка при записи и id не будет возвращен
-               // запись комментария в БД
-               $id = DB::save_comment ($data['id'], $commentText);
-               if (!$id) {
-                   $data['errors'] [] = "Во время записи комметария в БД произошла ошибка";
-               }
-           }
-       } 	//	if (isset($_POST['action'])...
-
-       $this->view->generate('page_view.php', 'template_view.php', $data);		// генерация изображения
-   }
+        $this->view->generate('page_view.php', 'template_view.php', $data);        // генерация изображения
+    }
 
 }
 

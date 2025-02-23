@@ -14,22 +14,22 @@
         switch ($_POST['act']) {
             case "getAllmes" :
                 // загрузка всей таблицы соообщений
-                $arr =DB::get_message_table($_POST['page']);
+                $arr =DB::getAllMessage($_POST['page']);
                 echo json_encode($arr);
                 break;
             case "getMesById" :
                 // загрузка сообщения по id
-                $arr =DB::get_message_byId($_POST['id']);
+                $arr =DB::getMessageById($_POST['id']);
                 echo json_encode($arr);
                 break;
             case "getCommByIdMes" :
                 // загрузка всех комметариев одного сообщения по id сообщения
-                $arr =DB::get_comments_by_Id_mes($_POST['id']);
+                $arr =DB::getCommentsByIdOfMes($_POST['id']);
                 echo json_encode($arr);
                 break;
             case "updateMesById" :
                 // изменение текста сообщения по id сообщения
-                $status =DB::update_message_by_Id($_POST['id'], $_POST['text']);
+                $status =DB::updateMessageById($_POST['id'], $_POST['text']);
                 if ($status)  $response['status'] = 'ok';
                 else $response['status'] = 'error';
                 echo json_encode($response);
