@@ -44,7 +44,7 @@
             <h6 class="mb-3">Добавить комментарий</h6>
             <form enctype="multipart/form-data" method="post">
                 <div class="mb-3">
-                    <label for="commentText" class="form-label">Комментарий</label>
+                    <label for="commentText" class="form-label">Комментарий (не менее 5 символов)</label>
                     <textarea name="commentText" class="form-control" rows="3" placeholder="Введите комментарий" minlength="5" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" name="action">Отправить</button>

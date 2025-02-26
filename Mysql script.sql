@@ -67,44 +67,26 @@ CREATE TABLE `comments`
 (
     `id`    int unsigned NOT NULL AUTO_INCREMENT,
     `text_` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    `messege_id` int unsigned NOT NULL,
+    CONSTRAINT messege_fk FOREIGN KEY (messege_id) REFERENCES messeges (id),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
-INSERT INTO `comments` (text_)
-VALUES ('comment 1');
-INSERT INTO `comments` (text_)
-VALUES ('comment 2');
-INSERT INTO `comments` (text_)
-VALUES ('comment 3');
-INSERT INTO `comments` (text_)
-VALUES ('comment 4');
-INSERT INTO `comments` (text_)
-VALUES ('comment 5');
-INSERT INTO `comments` (text_)
-VALUES ('comment 6');
-INSERT INTO `comments` (text_)
-VALUES ('comment 7');
+INSERT INTO `comments` (text_, messege_id)
+VALUES ('comment 1', 1);
+INSERT INTO `comments` (text_, messege_id)
+VALUES ('comment 2', 2);
+INSERT INTO `comments` (text_, messege_id)
+VALUES ('comment 3', 1);
+INSERT INTO `comments` (text_, messege_id)
+VALUES ('comment 4', 4);
+INSERT INTO `comments` (text_, messege_id)
+VALUES ('comment 5', 2);
+INSERT INTO `comments` (text_, messege_id)
+VALUES ('comment 6', 1);
+INSERT INTO `comments` (text_, messege_id)
+VALUES ('comment 7', 8);
 
-CREATE TABLE `pivot`
-(
-    `id`         int unsigned NOT NULL AUTO_INCREMENT,
-    `messege_id` int unsigned NOT NULL,
-    `comment_id` int unsigned NOT NULL UNIQUE,
-    PRIMARY KEY (`id`),
-    CONSTRAINT messege_fk FOREIGN KEY (messege_id) REFERENCES messeges (id),
-    CONSTRAINT comment_fk FOREIGN KEY (comment_id) REFERENCES comments (id)
-) ENGINE=InnoDB AUTO_INCREMENT=1;
 
-INSERT INTO `pivot` (messege_id, comment_id)
-VALUES (1, 1);
-INSERT INTO `pivot` (messege_id, comment_id)
-VALUES (1, 2);
-INSERT INTO `pivot` (messege_id, comment_id)
-VALUES (2, 3);
-INSERT INTO `pivot` (messege_id, comment_id)
-VALUES (3, 4);
-INSERT INTO `pivot` (messege_id, comment_id)
-VALUES (4, 5);
-INSERT INTO `pivot` (messege_id, comment_id)
-VALUES (5, 6);
+
 

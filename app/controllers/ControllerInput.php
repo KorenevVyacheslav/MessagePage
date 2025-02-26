@@ -9,6 +9,7 @@ use App\models\DB;
 
 /**
  * контроллер для обработки главной страницы
+ * на которой выводятся по три сообщения
  * ControllerPage class
  */
 class ControllerInput extends Controller
@@ -18,7 +19,7 @@ class ControllerInput extends Controller
      */
     public function __construct()
     {
-        $this->view = new View();                    // инициализация объекта представления
+        $this->view = new View();                    // формирование представления (вывод данных)
     }
 
     /**
@@ -42,7 +43,7 @@ class ControllerInput extends Controller
             // поэтому заккоментировано
             // так как все данные текстовые, то проверять больше нечего
 
-            // безопасность вводимых данных
+            // защита от xss атак
             $title = htmlspecialchars($_POST['title']);
             $author = htmlspecialchars($_POST['author']);
             $brief = htmlspecialchars($_POST['brief']);

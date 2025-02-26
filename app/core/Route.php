@@ -10,7 +10,6 @@ class Route	{
 		$action_name = 'index';
         $id = null;
 
-
 		$routes = explode('/', $_SERVER['REQUEST_URI']);
 
 		// получаем имя контроллера

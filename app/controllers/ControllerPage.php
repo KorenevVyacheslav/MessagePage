@@ -7,7 +7,8 @@ use App\core\View;
 use App\models\DB;
 
 /**
- * контроллер для обработки страницы сообщения
+ * контроллер для обработки страницы
+ * на которой выводится сообщение и его комметарии
  * ControllerPage class
  */
 class ControllerPage extends Controller

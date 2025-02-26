@@ -73,8 +73,7 @@ class DB
     // получение всех записей таблицы messages
 
     /**
-     * Метод получения записей
-     * из таблицы messeges
+     * Метод получения записей из таблицы messeges
      * номер страницы
      * @param $page
      * @return array
@@ -123,7 +122,7 @@ class DB
      */
     public static function getCommentsByIdOfMes($id)
     {
-        $query = "SELECT * FROM comments WHERE id IN (SELECT comment_id FROM pivot WHERE messege_id = :id)";
+        $query = "SELECT * FROM comments WHERE messege_id= :id";
         self::$sth = self::getDbh()->prepare($query);
         self::$sth->execute(array('id' => $id));
         return self::$sth->fetchAll(PDO::FETCH_ASSOC);
@@ -176,15 +175,11 @@ class DB
      */
     public static function saveComment($mesId, $commentText)
     {
-        $query = "INSERT INTO comments SET `text_` = :text";
+        $query = "INSERT INTO comments SET `text_` = :text, `messege_id` = :messege_id";
         self::$sth = self::getDbh()->prepare($query);
         // сохраняем комментарий и получаем id сохранённого комментария
-        $commentId = (self::$sth->execute(array('text' => $commentText))) ? self::getDbh()->lastInsertId() : 0;
+        return (self::$sth->execute(array('text' => $commentText, 'messege_id' => $mesId))) ? self::getDbh()->lastInsertId() : 0;
 
-        // сохраняем запись в pivot
-        $query = "INSERT INTO pivot SET `comment_id` = :commentId, `messege_id` = :messege_id";
-        self::$sth = self::getDbh()->prepare($query);
-        return (self::$sth->execute(array('commentId' => $commentId, 'messege_id' => $mesId))) ? self::getDbh()->lastInsertId() : 0;
     }
 
 }
