@@ -73,14 +73,13 @@ class DB
     // получение всех записей таблицы messages
 
     /**
-     * Метод получения записей из таблицы messeges
+     * Метод получения записей из таблицы messeges для определённой страницы
      * номер страницы
      * @param $page
      * @return array
      */
     public static function getAllMessage($page)
     {
-
         $perpage = 3;                           // количество сообщений на страницу
         $offset = ($page - 1) * $perpage;       // вычисляем смещение для запроса к БД
 
@@ -138,7 +137,7 @@ class DB
      * @param string $brief
      * сообщение
      * @param string $message
-     * @return false|int|string
+     * @return false|int
      */
     public static function saveMessage($title, $author, $brief, $message)
     {
@@ -154,7 +153,7 @@ class DB
      * @param $id
      * текст сообщения
      * @param $newText
-     * @return int|mixed
+     * @return false|int
      */
     public static function updateMessageById($id, $newText)
     {
@@ -171,7 +170,7 @@ class DB
      * @param $mesId
      * текст комметария
      * @param $commentText
-     * @return false|int|string
+     * @return false|int
      */
     public static function saveComment($mesId, $commentText)
     {

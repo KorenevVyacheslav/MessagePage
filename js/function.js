@@ -1,6 +1,6 @@
 
 /* функция вывода через ajax таблицы сообщений на главной странице*/
-var Load_messages = function (page) {
+var loadMessages = function (page) {
     //$("#table tbody").children().remove();
     $("#messages-container").empty();
     $.ajax({
@@ -8,8 +8,8 @@ var Load_messages = function (page) {
         dataType: 'json',
         url: '/app/ajax.php',
         data: {
-            act: "getAllmes",             // метод загрузит всю таблицу сообщений
-            page: page
+            act: "getAllmes",               // метод загрузит соообщения для текущей страницы
+            page: page                      // номер страницы
         },
         success: function (data) {
             $.each(data.messages, function (key, value) {
@@ -47,18 +47,18 @@ function generatePagination(totalMessages, currentPage) {
 
     // кнопка "предыдущая"
     if (currentPage > 1) {
-        pagination.append(`<button class="page-link" onclick="Load_messages(${currentPage - 1})">Предыдущая</button>`);
+        pagination.append(`<button class="page-link" onclick="loadMessages(${currentPage - 1})">Предыдущая</button>`);
     }
 
     // номера страниц
     for (var i = 1; i <= totalPages; i++) {
-        var pageLink = $(`<button class="page-link ${i === currentPage ? 'active' : ''}" onclick="Load_messages(${i})">${i}</button>`);
+        var pageLink = $(`<button class="page-link ${i === currentPage ? 'active' : ''}" onclick="loadMessages(${i})">${i}</button>`);
         pagination.append(pageLink);
     }
 
     // кнопка "следующая"
     if (currentPage < totalPages) {
-        pagination.append(`<button class="page-link" onclick="Load_messages(${currentPage + 1})">Следующая</button>`);
+        pagination.append(`<button class="page-link" onclick="loadMessages(${currentPage + 1})">Следующая</button>`);
     }
 
     // добавляем пагинацию после конопки отправить сообщение

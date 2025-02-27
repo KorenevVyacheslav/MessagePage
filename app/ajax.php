@@ -13,7 +13,7 @@
 
         switch ($_POST['act']) {
             case "getAllmes" :
-                // загрузка всей таблицы соообщений
+                // загрузка соообщений для текущей страницы с номером page
                 $arr =DB::getAllMessage($_POST['page']);
                 echo json_encode($arr);
                 break;

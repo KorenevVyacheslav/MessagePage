@@ -71,7 +71,7 @@
         var id = <?php echo $data['id']; ?>;            // id сообщения для запроса через AJAX
         var originalText = '';                          // переменная для хранения исходного текста сообщения
 
-        var Load_mes = function () {
+        var loadMessages = function () {
             var result;
             $.ajax({
                 type: "POST",
@@ -93,7 +93,7 @@
         }
 
         // загружаем и выводим сообщение
-        Load_mes();
+        loadMessages();
         // загружаем и выводим комметарии
         Load_comments(id);
 

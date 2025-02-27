@@ -35,7 +35,6 @@
     </div>
 </div>
 
-
         <!-- форма для добавления сообщения-->
         <div class="card-footer">
             <h5 class="mb-3">Добавить сообщение</h5>
@@ -54,7 +53,7 @@
                 <div class="mb-3">
                     <label for="brief" class="form-label">Краткое содержание (не менее 5 и не более 40 символов)</label>
                     <input type="text" name="brief" id="brief" placeholder="Введите краткое содержание"
-                           class="form-control" minlength="5" maxlength="40" required>
+                           class="form-control" minlength="5" maxlength="40" value="brief" required>
                 </div>
                 <div class="mb-3">
                     <label for="message" class="form-label">Сообщение</label>
@@ -86,7 +85,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        Load_messages(1);
+        loadMessages(1);
     });
 
 </script>
