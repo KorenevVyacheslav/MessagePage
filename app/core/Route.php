@@ -36,7 +36,7 @@ class Route	{
 		$controller_path = CONTROLLERS.$controller_file;			
 
 		if (file_exists($controller_path))	{
-			include CONTROLLERS.$controller_file;						//   подключаем файл контроллера
+			include CONTROLLERS.$controller_file;						                //   подключаем файл контроллера
 		}
 		else   {	
 			Route::ErrorPage();			

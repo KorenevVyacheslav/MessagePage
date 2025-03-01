@@ -1,7 +1,6 @@
 
 /* функция вывода через ajax таблицы сообщений на главной странице*/
 var loadMessages = function (page) {
-    //$("#table tbody").children().remove();
     $("#messages-container").empty();
     $.ajax({
         type: "POST",
@@ -32,7 +31,7 @@ var loadMessages = function (page) {
             // Генерация пагинации
             generatePagination(data.total, page)
         },
-        // complete: function () { setTimeout(Load, 5000);  }
+        // complete: function () { setTimeout(loadMessages, 5000);  }
     });     // $.ajax
 };
 
@@ -52,7 +51,7 @@ function generatePagination(totalMessages, currentPage) {
 
     // номера страниц
     for (var i = 1; i <= totalPages; i++) {
-        var pageLink = $(`<button class="page-link ${i === currentPage ? 'active' : ''}" onclick="loadMessages(${i})">${i}</button>`);
+        var pageLink = $(`<button type="button" class="page-link ${i === currentPage ? 'active' : ''}" onclick="loadMessages(${i})">${i}</button>`);
         pagination.append(pageLink);
     }
 
@@ -61,8 +60,8 @@ function generatePagination(totalMessages, currentPage) {
         pagination.append(`<button class="page-link" onclick="loadMessages(${currentPage + 1})">Следующая</button>`);
     }
 
-    // добавляем пагинацию после конопки отправить сообщение
-    $('#last').after(pagination);
+    // добавляем пагинацию после кнопки отправить сообщение
+     $('#last').after(pagination);
 }
 
 

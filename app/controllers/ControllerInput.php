@@ -28,6 +28,7 @@ class ControllerInput extends Controller
      */
     function action_index(): void
     {
+        error_log("action_index called");
         $data = [
             'errors' => [],                            // массив ошибок
             'messages' => [],                            // массив сообщений
@@ -49,25 +50,25 @@ class ControllerInput extends Controller
             $brief = htmlspecialchars($_POST['brief']);
             $message = htmlspecialchars($_POST['message']);
 
-//            if (mb_strlen($title) > 25 || mb_strlen($title) < 3)	{
-//                $data['errors'] [] = "Заголовок должен быть не менее 3 и не больше 25символов";
-//                $reg=false;
-//            }
-//
-//            if (mb_strlen($author) > 25 || mb_strlen($author) < 3)	{
-//                $data['errors'] [] = "ФИО автора должно быть не менее 5 и не больше 20 символов";
-//                $reg=false;
-//            }
-//
-//            if (mb_strlen($brief) > 40 || mb_strlen($brief) < 5)	{
-//                $data['errors'] [] = "Краткое содержание должно быть не менее 5 и не больше 40 символов";
-//                $reg=false;
-//            }
-//
-//            if (mb_strlen($message) < 5)	{
-//                $data['errors'] [] = "Сообщение должно быть не менее 5 символов";
-//                $reg=false;
-//            }
+            if (mb_strlen($title) > 25 || mb_strlen($title) < 3)	{
+                $data['errors'] [] = "Заголовок должен быть не менее 3 и не больше 25символов";
+                $reg=false;
+            }
+
+            if (mb_strlen($author) > 25 || mb_strlen($author) < 3)	{
+                $data['errors'] [] = "ФИО автора должно быть не менее 5 и не больше 20 символов";
+                $reg=false;
+            }
+
+            if (mb_strlen($brief) > 40 || mb_strlen($brief) < 5)	{
+                $data['errors'] [] = "Краткое содержание должно быть не менее 5 и не больше 40 символов";
+                $reg=false;
+            }
+
+            if (mb_strlen($message) < 5)	{
+                $data['errors'] [] = "Сообщение должно быть не менее 5 символов";
+                $reg=false;
+            }
 
             // так как все данные текстовые, то проверять больше нечего. По ТЗ проверки не оговариваются
 

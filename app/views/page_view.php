@@ -1,5 +1,4 @@
 <body class="bg-secondary">
-
 <div class="container my-5">
     <!-- сообщение -->
     <div class="card mb-4">
